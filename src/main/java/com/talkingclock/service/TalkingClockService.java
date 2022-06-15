@@ -15,7 +15,7 @@ public class TalkingClockService {
             "Eighteen", "Nineteen", "Twenty", "Twenty one",
             "Twenty two", "Twenty three", "Twenty four",
             "Twenty five", "Twenty six", "Twenty seven",
-            "Twenty eight", "Twenty nine",
+            "Twenty eight", "Twenty nine"
     };
     private static final String QUARTER_PAST = "Quarter past ";
     private static final String O_CLOCK = " o'clock";
