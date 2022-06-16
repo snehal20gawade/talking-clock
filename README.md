@@ -34,4 +34,4 @@ Numeric Time parameter as input and return the "Human Friendly Text" equivalent.
 ### Command Line Program
   1. Execute main class TalkingClockCommand.java to get a current or provided numeric time in Human friendly text.<br>
   You can pass numeric time as program argumnets if there is no program arugments passed then it would return current time in 
-  "Human Friendly Text" if no argumnet provided
+  "Human Friendly Text".
