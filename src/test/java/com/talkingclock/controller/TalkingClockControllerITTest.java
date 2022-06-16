@@ -20,8 +20,7 @@ public class TalkingClockControllerITTest {
 
     private static final String FOUR_O_CLOCK = "Four o'clock";
     private static final String TWO_O_CLOCK = "Two o'clock";
-    public static final String API_HUMAN_READABLE_CURRENT_TIME = "/api/human-readable-time";
-    public static final String API_HUMAN_READABLE_TIME = "/api/human-readable-time?";
+    public static final String API_HUMAN_READABLE_CURRENT_TIME = "/api/human-readable-time";;
 
     @Autowired
     private MockMvc mockMvc;

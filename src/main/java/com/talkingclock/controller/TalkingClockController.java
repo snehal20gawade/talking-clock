@@ -26,7 +26,7 @@ public class TalkingClockController {
         }
         return talkingClockService.getCurrentTime();
     }
-
+    //TODO add validation for numeric time
     private String[] getHourAndMinutesFromTime(String numericTime){
        return numericTime.split(TIME_TOKEN);
     }

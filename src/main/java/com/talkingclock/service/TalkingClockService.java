@@ -7,7 +7,7 @@ import java.time.LocalTime;
 @Service
 public class TalkingClockService {
 
-    private static final String[] HOUR_MIN_WORDS = {
+    private static final String[] HOUR_MIN_IN_WORDS = {
             "Zero", "One", "Two", "Three", "Four",
             "Five", "Six", "Seven", "Eight", "Nine",
             "Ten", "Eleven", "Twelve", "Thirteen",
@@ -40,17 +40,17 @@ public class TalkingClockService {
     public String convertTimeIntoHumanReadableFormat(int hour, int minutes){
         validateHourAndMinutes(hour, minutes);
         if(minutes == 0){
-            return HOUR_MIN_WORDS[hour] + O_CLOCK;
+            return HOUR_MIN_IN_WORDS[hour] + O_CLOCK;
         }else if( minutes == 15){
-            return QUARTER_PAST + HOUR_MIN_WORDS[hour];
+            return QUARTER_PAST + HOUR_MIN_IN_WORDS[hour];
         } else if( minutes == 30){
-            return HALF_PAST + HOUR_MIN_WORDS[hour];
+            return HALF_PAST + HOUR_MIN_IN_WORDS[hour];
         } else if( minutes == 45){
-            return QUARTER_TO +  HOUR_MIN_WORDS[(hour % 12) + 1];
+            return QUARTER_TO +  HOUR_MIN_IN_WORDS[(hour % 12) + 1];
         } else if (minutes > 30){
-            return  HOUR_MIN_WORDS[60 - minutes] + TO + HOUR_MIN_WORDS[(hour % 12) + 1];
-        }else {
-            return  HOUR_MIN_WORDS[minutes] + PAST + HOUR_MIN_WORDS[hour];
+            return  HOUR_MIN_IN_WORDS[60 - minutes] + TO + HOUR_MIN_IN_WORDS[(hour % 12) + 1];
+        } else {
+            return  HOUR_MIN_IN_WORDS[minutes] + PAST + HOUR_MIN_IN_WORDS[hour];
         }
     }
 
