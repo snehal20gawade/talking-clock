@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalTime;
 
 @Service
-public class TalkingClockService {
+public class HumanFriendlyClockService implements ClockService {
 
     private static final String[] HOUR_MIN_HUMAN_FRIENDLY_FORMAT = { "Zero", "One", "Two", "Three", "Four",
             "Five", "Six", "Seven", "Eight", "Nine",
@@ -28,19 +28,21 @@ public class TalkingClockService {
     private final TimeFactory timeFactory;
     private final NumericTimeValidator numericTimeValidator;
 
-    public TalkingClockService(TimeFactory timeFactory, NumericTimeValidator numericTimeValidator) {
+    public HumanFriendlyClockService(TimeFactory timeFactory, NumericTimeValidator numericTimeValidator) {
         this.timeFactory = timeFactory;
         this.numericTimeValidator = numericTimeValidator;
     }
 
-    public String getHumanFriendlyCurrentTime() {
+    @Override
+    public String formattedCurrentTime() {
         LocalTime localTime = timeFactory.getCurrentTime();
         int hour = localTime.getHour();
         int min = localTime.getMinute();
         return convertTimeIntoHumanFriendlyFormat(hour, min);
     }
 
-    public String getHumanFriendlyTime(String numericTime){
+    @Override
+    public String formattedTime(String numericTime){
         String[] parsedTime = getHourAndMinutesFromTime(numericTime);
         int hour = Integer.parseInt(parsedTime[0]);
         int minutes = Integer.parseInt(parsedTime[1]);
@@ -67,4 +69,5 @@ public class TalkingClockService {
         numericTimeValidator.validate(numericTime);
         return numericTime.split(TIME_TOKEN);
     }
+
 }
