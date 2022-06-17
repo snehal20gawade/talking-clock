@@ -1,5 +1,6 @@
 package com.talkingclock.controller;
 
+import com.talkingclock.exception.NumericTimeFormatException;
 import com.talkingclock.service.TalkingClockService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -20,6 +22,8 @@ public class TalkingClockControllerTest {
     private static final String HUMAN_FRIENDLY_THREE_O_CLOCK = "Three o'clock";
     private static final String NUMERIC_TIME_FOUR_O_CLOCK = "4:00";
     private static final String NUMERIC_TIME_HALF_PAST_FOUR = "4:30";
+    private static final String INVALID_NUMERIC_TIME = "4:65";
+    private static final String NOT_VALID_NUMERIC_TIME = "Not a valid numeric time : ";
 
     @Mock
     private TalkingClockService talkingClockService;
@@ -55,4 +59,11 @@ public class TalkingClockControllerTest {
         assertThat(HUMAN_FRIENDLY_THREE_O_CLOCK).isEqualTo(response.getBody());
     }
 
+    @Test
+    void givenInvalidNumericTime() {
+        doThrow(new NumericTimeFormatException(NOT_VALID_NUMERIC_TIME + INVALID_NUMERIC_TIME)).when(talkingClockService).getHumanFriendlyTime(INVALID_NUMERIC_TIME);
+        ResponseEntity<String> response = talkingClockController.getHumanReadableTime(Optional.of(INVALID_NUMERIC_TIME));
+        assertThat(HttpStatus.BAD_REQUEST).isEqualTo(response.getStatusCode());
+        assertThat(NOT_VALID_NUMERIC_TIME + INVALID_NUMERIC_TIME).isEqualTo(response.getBody());
+    }
 }
