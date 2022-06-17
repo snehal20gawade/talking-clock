@@ -26,7 +26,11 @@ Get current time in "Human Friendly Text" in JSON format.<br>
 Numeric Time parameter as input and return the "Human Friendly Text" equivalent.<br>
   https://localhost:8080/api/human-readable-time?time=13:05<br>
    above api call returns : Five past one
-
+   
+   ### api paramter 'time' should in below format 
+   hour – from 0 to 23 , minute – from 0 to 59 seperated by colon ':'<br>
+   e.g 1:00, 2:1, 12:35 and 17:55
+   
 ## Program execution
 ### Sring Boot Application
   1. Start spring boot application : TackingClockApplication.java and execute above API's
