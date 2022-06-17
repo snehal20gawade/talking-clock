@@ -30,6 +30,16 @@ public class NumericTimeValidatorTest {
     }
 
     @Test
+    void givenValidNumericTime_Single_Digit_Minutes_StartWithZero() {
+        numericTimeValidator.validate("12:01");
+    }
+
+    @Test
+    void givenValidNumericTime_Single_Digit_Minutes() {
+        numericTimeValidator.validate("12:1");
+    }
+
+    @Test
     void givenInValidNumericTime_without_colon() {
         NumericTimeFormatException exception = assertThrows(NumericTimeFormatException.class, () -> {
             numericTimeValidator.validate(NUMERIC_TIME_WITHOUT_COLON);
