@@ -25,10 +25,10 @@ public class TalkingClockControllerITTest {
 
     private static final String HUMAN_FRIENDLY_FOUR_O_CLOCK = "Four o'clock";
     private static final String HUMAN_FRIENDLY_TWO_O_CLOCK = "Two o'clock";
-    private static final String API_HUMAN_READABLE_CURRENT_TIME = "/api/human-readable-time";
+    private static final String API_HUMAN_READABLE_CURRENT_TIME = "/api/human-friendly-time";
     private static final String NOT_VALID_NUMERIC_TIME = "Not a valid numeric time : ";
     private static final String INVALID_NUMERIC_TIME = "25:0";
-    private static final String API_HUMAN_READABLE_TIME_WITH_PARAMETER = "/api/human-readable-time?time=";
+    private static final String API_HUMAN_READABLE_TIME_WITH_PARAMETER = "/api/human-friendly-time?time=";
     private static final String NUMERIC_TIME_TWO_O_CLOCK = "2:0";
 
     @Autowired

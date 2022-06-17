@@ -34,7 +34,7 @@ public class HumanFriendlyClockService implements ClockService {
     }
 
     @Override
-    public String formattedCurrentTime() {
+    public String humanFriendlyCurrentTime() {
         LocalTime localTime = timeFactory.getCurrentTime();
         int hour = localTime.getHour();
         int min = localTime.getMinute();
@@ -42,7 +42,7 @@ public class HumanFriendlyClockService implements ClockService {
     }
 
     @Override
-    public String formattedTime(String numericTime){
+    public String humanFriendlyTime(String numericTime){
         String[] parsedTime = getHourAndMinutesFromTime(numericTime);
         int hour = Integer.parseInt(parsedTime[0]);
         int minutes = Integer.parseInt(parsedTime[1]);

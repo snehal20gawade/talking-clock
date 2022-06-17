@@ -21,10 +21,10 @@ Numeric Time Human Friendly Text
 
 ## Rest API URL's
 Get current time in "Human Friendly Text" in JSON format.<br>
-  https://localhost:8080/api/human-readable-time
+  https://localhost:8080/api/human-friendly-time
 
 Numeric Time parameter as input and return the "Human Friendly Text" equivalent.<br>
-  https://localhost:8080/api/human-readable-time?time=13:05<br>
+  https://localhost:8080/api/human-friendly-time?time=13:05<br>
    above api call returns : Five past one
    
    ### api paramter 'time' should in below format 

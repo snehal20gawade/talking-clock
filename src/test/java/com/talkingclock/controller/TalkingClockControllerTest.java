@@ -37,32 +37,32 @@ public class TalkingClockControllerTest {
 
     @Test
     void givenNumericTime_Four_O_Clock() {
-        when(clockService.formattedTime(NUMERIC_TIME_FOUR_O_CLOCK)).thenReturn(HUMAN_FRIENDLY_FOUR_O_CLOCK);
-        ResponseEntity<String> response = talkingClockController.getHumanReadableTime(Optional.of(NUMERIC_TIME_FOUR_O_CLOCK));
+        when(clockService.humanFriendlyTime(NUMERIC_TIME_FOUR_O_CLOCK)).thenReturn(HUMAN_FRIENDLY_FOUR_O_CLOCK);
+        ResponseEntity<String> response = talkingClockController.getHumanFriendlyTime(Optional.of(NUMERIC_TIME_FOUR_O_CLOCK));
         assertThat(HttpStatus.OK).isEqualTo(response.getStatusCode());
         assertThat(HUMAN_FRIENDLY_FOUR_O_CLOCK).isEqualTo(response.getBody());
     }
 
     @Test
     void givenNumericTime_Half_Past_Four() {
-        when(clockService.formattedTime(NUMERIC_TIME_HALF_PAST_FOUR)).thenReturn(HUMAN_FRIENDLY_HALF_PAST_FOUR);
-        ResponseEntity<String> response = talkingClockController.getHumanReadableTime(Optional.of(NUMERIC_TIME_HALF_PAST_FOUR));
+        when(clockService.humanFriendlyTime(NUMERIC_TIME_HALF_PAST_FOUR)).thenReturn(HUMAN_FRIENDLY_HALF_PAST_FOUR);
+        ResponseEntity<String> response = talkingClockController.getHumanFriendlyTime(Optional.of(NUMERIC_TIME_HALF_PAST_FOUR));
         assertThat(HttpStatus.OK).isEqualTo(response.getStatusCode());
         assertThat(HUMAN_FRIENDLY_HALF_PAST_FOUR).isEqualTo(response.getBody());
     }
 
     @Test
     void givenNumericTimeNotPresentThenReturnCurrentTime() {
-        when(clockService.formattedCurrentTime()).thenReturn(HUMAN_FRIENDLY_THREE_O_CLOCK);
-        ResponseEntity<String> response = talkingClockController.getHumanReadableTime(Optional.empty());
+        when(clockService.humanFriendlyCurrentTime()).thenReturn(HUMAN_FRIENDLY_THREE_O_CLOCK);
+        ResponseEntity<String> response = talkingClockController.getHumanFriendlyTime(Optional.empty());
         assertThat(HttpStatus.OK).isEqualTo(response.getStatusCode());
         assertThat(HUMAN_FRIENDLY_THREE_O_CLOCK).isEqualTo(response.getBody());
     }
 
     @Test
     void givenInvalidNumericTime() {
-        doThrow(new NumericTimeFormatException(NOT_VALID_NUMERIC_TIME + INVALID_NUMERIC_TIME)).when(clockService).formattedTime(INVALID_NUMERIC_TIME);
-        ResponseEntity<String> response = talkingClockController.getHumanReadableTime(Optional.of(INVALID_NUMERIC_TIME));
+        doThrow(new NumericTimeFormatException(NOT_VALID_NUMERIC_TIME + INVALID_NUMERIC_TIME)).when(clockService).humanFriendlyTime(INVALID_NUMERIC_TIME);
+        ResponseEntity<String> response = talkingClockController.getHumanFriendlyTime(Optional.of(INVALID_NUMERIC_TIME));
         assertThat(HttpStatus.BAD_REQUEST).isEqualTo(response.getStatusCode());
         assertThat(NOT_VALID_NUMERIC_TIME + INVALID_NUMERIC_TIME).isEqualTo(response.getBody());
     }

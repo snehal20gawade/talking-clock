@@ -2,7 +2,7 @@ package com.talkingclock.service;
 
 public interface ClockService {
 
-    String formattedCurrentTime();
+    String humanFriendlyCurrentTime();
 
-    String formattedTime(String time);
+    String humanFriendlyTime(String time);
 }

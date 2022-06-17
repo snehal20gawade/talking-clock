@@ -12,9 +12,9 @@ public class TalkingClockCommand {
         NumericTimeValidator numericTimeValidator =  new NumericTimeValidator();
         HumanFriendlyClockService humanFriendlyClockService =  new HumanFriendlyClockService(timeFactory, numericTimeValidator);
         if(arg.length == 0) {
-            System.out.println(humanFriendlyClockService.formattedCurrentTime());
+            System.out.println(humanFriendlyClockService.humanFriendlyCurrentTime());
         }else {
-            System.out.println(humanFriendlyClockService.formattedTime(arg[0]));
+            System.out.println(humanFriendlyClockService.humanFriendlyTime(arg[0]));
         }
     }
 }
