@@ -6,18 +6,18 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class TalkingClockControllerTest {
 
-    private static final String FOUR_O_CLOCK = "Four o'clock";
-    private static final String HALF_PAST_FOUR = "Half past four";
-    private static final String THREE_O_CLOCK = "Three o'clock";
+    private static final String HUMAN_FRIENDLY_FOUR_O_CLOCK = "Four o'clock";
+    private static final String HUMAN_FRIENDLY_HALF_PAST_FOUR = "Half past four";
+    private static final String HUMAN_FRIENDLY_THREE_O_CLOCK = "Three o'clock";
     private static final String NUMERIC_TIME_FOUR_O_CLOCK = "4:00";
     private static final String NUMERIC_TIME_HALF_PAST_FOUR = "4:30";
 
@@ -33,22 +33,26 @@ public class TalkingClockControllerTest {
 
     @Test
     void givenNumericTime_Four_O_Clock() {
-        when(talkingClockService.convertTimeIntoHumanReadableFormat(4, 0)).thenReturn(FOUR_O_CLOCK);
-        String humanReadableTime = talkingClockController.getHumanReadableTime(Optional.of(NUMERIC_TIME_FOUR_O_CLOCK));
-        assertThat(FOUR_O_CLOCK).isEqualTo(humanReadableTime);
+        when(talkingClockService.getHumanFriendlyTime(NUMERIC_TIME_FOUR_O_CLOCK)).thenReturn(HUMAN_FRIENDLY_FOUR_O_CLOCK);
+        ResponseEntity<String> response = talkingClockController.getHumanReadableTime(Optional.of(NUMERIC_TIME_FOUR_O_CLOCK));
+        assertThat(HttpStatus.OK).isEqualTo(response.getStatusCode());
+        assertThat(HUMAN_FRIENDLY_FOUR_O_CLOCK).isEqualTo(response.getBody());
     }
 
     @Test
     void givenNumericTime_Half_Past_Four() {
-        when(talkingClockService.convertTimeIntoHumanReadableFormat(4, 30)).thenReturn(HALF_PAST_FOUR);
-        String humanReadableTime = talkingClockController.getHumanReadableTime(Optional.of(NUMERIC_TIME_HALF_PAST_FOUR));
-        assertThat(HALF_PAST_FOUR).isEqualTo(humanReadableTime);
+        when(talkingClockService.getHumanFriendlyTime(NUMERIC_TIME_HALF_PAST_FOUR)).thenReturn(HUMAN_FRIENDLY_HALF_PAST_FOUR);
+        ResponseEntity<String> response = talkingClockController.getHumanReadableTime(Optional.of(NUMERIC_TIME_HALF_PAST_FOUR));
+        assertThat(HttpStatus.OK).isEqualTo(response.getStatusCode());
+        assertThat(HUMAN_FRIENDLY_HALF_PAST_FOUR).isEqualTo(response.getBody());
     }
 
     @Test
     void givenNumericTimeNotPresentThenReturnCurrentTime() {
-        when(talkingClockService.getCurrentTime()).thenReturn(THREE_O_CLOCK);
-        String humanReadableTime = talkingClockController.getHumanReadableTime(Optional.empty());
-        assertThat(THREE_O_CLOCK).isEqualTo(humanReadableTime);
+        when(talkingClockService.getHumanFriendlyCurrentTime()).thenReturn(HUMAN_FRIENDLY_THREE_O_CLOCK);
+        ResponseEntity<String> response = talkingClockController.getHumanReadableTime(Optional.empty());
+        assertThat(HttpStatus.OK).isEqualTo(response.getStatusCode());
+        assertThat(HUMAN_FRIENDLY_THREE_O_CLOCK).isEqualTo(response.getBody());
     }
+
 }

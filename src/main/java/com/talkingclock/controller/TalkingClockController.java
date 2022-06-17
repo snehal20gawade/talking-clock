@@ -1,14 +1,17 @@
 package com.talkingclock.controller;
+import com.talkingclock.exception.NumericTimeFormatException;
 import com.talkingclock.service.TalkingClockService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+
 
 @RestController
 @RequestMapping(path = "/api")
 public class TalkingClockController {
 
-    private static final String TIME_TOKEN = ":";
     private final TalkingClockService talkingClockService;
 
     public TalkingClockController(TalkingClockService talkingClockService) {
@@ -16,19 +19,17 @@ public class TalkingClockController {
     }
 
     @GetMapping(path = "/human-readable-time", produces="application/json")
-    public String getHumanReadableTime(@RequestParam(name = "time") Optional<String> numericTime){
-
+    public ResponseEntity<String> getHumanReadableTime(@RequestParam(name = "time") Optional<String> numericTime){
         if(numericTime.isPresent()) {
-            String[] parsedTime = getHourAndMinutesFromTime(numericTime.get());
-            int hour = Integer.parseInt(parsedTime[0]);
-            int minutes = Integer.parseInt(parsedTime[1]);
-            return talkingClockService.convertTimeIntoHumanReadableFormat(hour, minutes);
+            try {
+                return ResponseEntity.status(HttpStatus.OK)
+                        .body(talkingClockService.getHumanFriendlyTime(numericTime.get()));
+            } catch (NumericTimeFormatException numericTimeFormatException){
+                return ResponseEntity.badRequest()
+                        .body(numericTimeFormatException.getMessage());
+            }
         }
-        return talkingClockService.getCurrentTime();
-    }
-    //TODO add validation for numeric time
-    private String[] getHourAndMinutesFromTime(String numericTime){
-       return numericTime.split(TIME_TOKEN);
+        return ResponseEntity.status(HttpStatus.OK).body(talkingClockService.getHumanFriendlyCurrentTime());
     }
 
 }

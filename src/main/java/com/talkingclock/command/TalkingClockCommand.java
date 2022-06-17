@@ -1,22 +1,20 @@
 package com.talkingclock.command;
 
 
-import com.talkingclock.controller.TalkingClockController;
 import com.talkingclock.service.TalkingClockService;
 import com.talkingclock.service.TimeFactory;
-
-import java.util.Optional;
+import com.talkingclock.validator.NumericTimeValidator;
 
 public class TalkingClockCommand {
 
     public static void main(String[] arg){
         TimeFactory timeFactory = new TimeFactory();
-        TalkingClockService talkingClockService =  new TalkingClockService(timeFactory);
-        TalkingClockController talkingClockController =  new TalkingClockController(talkingClockService);
+        NumericTimeValidator numericTimeValidator =  new NumericTimeValidator();
+        TalkingClockService talkingClockService =  new TalkingClockService(timeFactory, numericTimeValidator);
         if(arg.length == 0) {
-            System.out.println(talkingClockController.getHumanReadableTime(Optional.empty()));
+            System.out.println(talkingClockService.getHumanFriendlyCurrentTime());
         }else {
-            System.out.println(talkingClockController.getHumanReadableTime(Optional.of(arg[0])));
+            System.out.println(talkingClockService.getHumanFriendlyTime(arg[0]));
         }
     }
 }
